@@ -8,6 +8,7 @@
          GND--<2K resistor>--GPIO_2--<1K resistor>--TX(rdm6300).
 
    Arad Eizen (https://github.com/arduino12) 23/09/18.
+   Sakib Ahmed (https://github.com/ahmadSum1) 17/04/2019
 */
 #include "rdm6300.h"
 
