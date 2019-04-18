@@ -1,11 +1,10 @@
 /*
  * A simple library to interface with rdm6300 rfid reader.
  * Arad Eizen (https://github.com/arduino12) 23/09/18.
+ * Sakib Ahmed (https://github.com/ahmadSum1) 18/04/2019
  */
 
 #include "rdm6300.h"
-#include <Arduino.h>
-
 
 void Rdm6300::begin(int rx_pin, uint8_t uart_nr)
 {
@@ -17,6 +16,13 @@ void Rdm6300::begin(int rx_pin, uint8_t uart_nr)
 	_serial = new SoftwareSerial(rx_pin, -1);
 	_serial->begin(RDM6300_BAUDRATE);
 #endif
+	_serial->setTimeout(20);
+}
+void Rdm6300::begin(Stream &serialPort)
+{
+	_serial = &serialPort; //Grab which port the user wants us to use
+	//Serial.begin(RDM6300_BAUDRATE);  //Stream has no .begin() so the user has to do a whateverSerial.begin(xxxx); from setup()
+	
 	_serial->setTimeout(20);
 }
 
@@ -58,7 +64,8 @@ bool Rdm6300::update(void)
 		return false;
 
 	/* if a new tag appears- return it */
-	if (_last_tag_id != tag_id) {
+	if (_last_tag_id != tag_id)
+	{
 		_last_tag_id = tag_id;
 		_next_read_ms = 0;
 	}

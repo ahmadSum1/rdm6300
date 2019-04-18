@@ -1,7 +1,10 @@
 /*
  * A simple library to interface with rdm6300 rfid reader.
  * Arad Eizen (https://github.com/arduino12) 23/09/18.
+ * Sakib Ahmed (https://github.com/ahmadSum1) 18/04/2019
  */
+
+#include "Arduino.h" //Needed for Stream
 
 #ifndef _RDM6300_h_
 #define _RDM6300_h_
@@ -22,11 +25,15 @@ class Rdm6300
 {
 	public:
 		void begin(int rxPin, uint8_t uart_nr=1);
+		void begin(Stream &serialPort = Serial); //If user doesn't specificy then Serial will be used
 		bool update(void);
 		uint32_t get_tag_id(void);
 		bool is_tag_near(void);
 	private:
-#ifdef ARDUINO_ARCH_ESP32
+#ifdef GENERIC
+		Stream * _serial; //The generic connection to user's chosen serial hardware
+		
+#elif ARDUINO_ARCH_ESP32
 		HardwareSerial * _serial;
 #else
 		SoftwareSerial * _serial;
