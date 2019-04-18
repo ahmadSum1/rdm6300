@@ -14,7 +14,7 @@
 
 // #define RDM6300_RX_PIN 2
 #define GENERIC   //required by the library so that we can pass a refference to our own Serial object
-#define READ_LED_PIN 13
+#define READ_LED_PIN LED_BUILTIN //pin 2 for esp8266
 
 bool newTag = true;
 

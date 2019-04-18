@@ -9,7 +9,9 @@
 #ifndef _RDM6300_h_
 #define _RDM6300_h_
 
-#ifdef ARDUINO_ARCH_ESP32
+#ifdef GENERIC
+  //import nothing
+#elif ARDUINO_ARCH_ESP32
 	#include <HardwareSerial.h>
 #else
 	#include <SoftwareSerial.h>
